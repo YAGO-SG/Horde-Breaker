@@ -11,3 +11,4 @@ while True:
         game_mode = gameloop_menu(game_mode)
     elif game_mode == 1: #modo Game
         gameloop_game(game_mode)
+        

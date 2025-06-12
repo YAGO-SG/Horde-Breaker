@@ -11,8 +11,12 @@ def Sprites_Menu():
 
 #Spites da janela game
 def Sprites_game():
-    player = Sprite('Sprites/Game/player machinegun.gif')
     full_heart = [Sprite('Sprites/Game/HUD/full_heart.png') for _ in range(3)]
     heartless = [Sprite('Sprites/Game/HUD/heartless.png') for _ in range(3)]
 
-    return player, full_heart, heartless
+    return full_heart, heartless
+
+def Sprites_jogador():
+    player = Sprite('Sprites/Game/player machinegun.gif')
+    
+    return player

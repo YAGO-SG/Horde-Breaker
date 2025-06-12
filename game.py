@@ -1,21 +1,22 @@
 from config import window, mouse
 from Sprites import Sprites_game
+from Player import init_player, default, update_player_rotation
 import pygame
 import math
 
 def posições_sprites_game():
-    player, full_heart, heartless = Sprites_game() #importa os Sprites do arquivo Sprites.py
+    full_heart, heartless = Sprites_game() #importa os Sprites do arquivo Sprites.py
     # define as posições dos Sprites
-    player.set_position((window.width - player.width)/2, (window.height - player.height)/2)
     for i, heart in enumerate(full_heart):
         heart.set_position( (window.width - heart.width) - (heart.width * i + 30),30)
     for l, heart2 in enumerate(heartless):
         heart2.set_position( (window.width - heart2.width) - (heart2.width * l + 30),30)
 
-    return player, full_heart, heartless
+    return full_heart, heartless
 
 def gameloop_game(game_mode):
-    player, full_heart, heartless = posições_sprites_game() #chama a função posições_Sprites_game() para utilizar suas variaveis dentro desta função
+    init_player()
+    full_heart, heartless = posições_sprites_game() #chama a função posições_Sprites_game() para utilizar suas variaveis dentro desta função
 
     pygame.init()# inserido para poder utilizar as funcionalidade do pygame
     pygame.font.init() #tem a função de importar a fontes disponiveis no pygame
@@ -29,7 +30,7 @@ def gameloop_game(game_mode):
    
 
     while game_mode == 1:
-        window.set_background_color([0,70,0])
+        window.set_background_color([0,60,0])
 
         #comando do pygame para configurar os textos na janela do game
         ellimination_count = font.render(f"kills {kills}", True, (255, 255, 255))
@@ -46,5 +47,7 @@ def gameloop_game(game_mode):
             heartless[k].draw()
         for i in range(3):
             full_heart[i].draw()
-        player.draw()
+            
+        update_player_rotation()
+        default()
         window.update()

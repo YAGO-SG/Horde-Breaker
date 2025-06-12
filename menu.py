@@ -1,4 +1,4 @@
-from config import window, mouse, keyboard
+from config import window, mouse, keyboard, click
 from Sprites import Sprites_Menu
 
 #define as posições dos Sprite na janela de menu
@@ -13,11 +13,7 @@ def posições_Sprites_menu():
 
 
 #função usada para interação do mouse com sprite
-def click(sprite):
-    if mouse.is_button_pressed(1):
-        if mouse.is_over_object(sprite):
-            return True
-        
+
     
 def gameloop_menu(game_mode):
     background, play, score, mute, close = posições_Sprites_menu() #importa as variáveis da função posição_sprites_menu() para utilizar nesta função
@@ -28,6 +24,8 @@ def gameloop_menu(game_mode):
             game_mode = 1
         elif click(score):
             game_mode = 2
+        elif click(close):
+            window.close()
 
         background.draw()
         play.draw()
