@@ -2,7 +2,7 @@
 from pplay.window import Window
 import pygame
 
-window = Window(1050, 700)
+window = Window(1500, 850)
 window.set_title("window_main")
 mouse = window.get_mouse()
 keyboard = window.get_keyboard()
@@ -11,13 +11,10 @@ def click(sprite):
     if mouse.is_button_pressed(1):
         if mouse.is_over_object(sprite):
             return True
-        
-# Exemplo de implementação para Sprites_player
-import pygame
 
 class Sprite_player:
     def __init__(self):
-        self.original_image = pygame.image.load("player.png").convert_alpha()  # Use o caminho correto
+        self.original_image = pygame.image.load("Sprites/Game/player.png").convert_alpha()  # Use o caminho correto
         self.image = self.original_image
         self.x = 0
         self.y = 0

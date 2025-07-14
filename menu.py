@@ -1,19 +1,28 @@
 from config import window, mouse, keyboard, click
-from Sprites import Sprites_Menu
+from Sprites import Sprites_Menu, Sprite_Score
 
 #define as posições dos Sprite na janela de menu
 def posições_Sprites_menu():
     background, play, score, mute, close = Sprites_Menu()
     background.set_position((window.width - background.width)/2, (window.height - background.height)/2)
-    play.set_position(window.width - play.width - 50, 190)
-    score.set_position(window.width - score.width - 50, 240)
-    mute.set_position(window.width - mute.width - 50, 290)
-    close.set_position(window.width - close.width - 50, 350)
+    play.set_position((window.width - play.width)/2, 550)
+    score.set_position((window.width - score.width)/2, 635)
+    mute.set_position((window.width - mute.width)/2 - 80, 720)
+    close.set_position((window.width - close.width)/2 + 85, 720)
     return background, play, score, mute, close
 
+def gameloop_score(game_mode):
+    score_background = Sprite_Score()
+    score_background.set_position((window.width - score_background.width)/2, (window.height - score_background.height)/2)
+    while game_mode == 2:
+        if keyboard.key_pressed("ESC"):
+            return 0
 
-#função usada para interação do mouse com sprite
+        score_background.draw()
+        window.update()
+        
 
+    
     
 def gameloop_menu(game_mode):
     background, play, score, mute, close = posições_Sprites_menu() #importa as variáveis da função posição_sprites_menu() para utilizar nesta função
