@@ -70,6 +70,16 @@ def mover_e_desenhar_inimigos(enemies, player_world_x, player_world_y, player, d
             enemy["sprite"].set_position(tela_x, tela_y)
             enemy["sprite"].draw()
 
+            # Checa colisão com disparos (no mundo)
+            for disparo in disparos:
+                if abs(enemy["x"] - disparo["x"]) < enemy["sprite"].width and abs(enemy["y"] - disparo["y"]) < enemy["sprite"].height:
+                    to_remove_enemies.append(enemy)
+                    to_remove_disparos.append(disparo)
+                    kills += 1
+                    # Se for explotion_monster, adiciona explotion no lugar
+                    if enemy["tipo"] == "explotion_monster":
+                        enemies.append(criar_explotion(enemy["x"], enemy["y"]))
+
             # Checa colisão com player (no mundo)
             if enemy["tipo"] == "explotion_monster":
                 if abs(enemy["x"] - player_world_x) < player.width and abs(enemy["y"] - player_world_y) < player.height:

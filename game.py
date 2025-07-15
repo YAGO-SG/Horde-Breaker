@@ -137,6 +137,9 @@ def gameloop_game(game_mode):
         last_shot_time = shooting_funcionality(disparos, last_shot_time, current_time, player_world_x, player_world_y)
         kills, player_hit, vida_perdida = mover_e_desenhar_inimigos(enemies, player_world_x, player_world_y, player, disparos, kills, invencivel)
 
+
+
+
         # Controle de rounds e fúria
         elapsed_round_sec = current_time - round_start_time
 
@@ -177,6 +180,10 @@ def gameloop_game(game_mode):
                     round_start_time = current_time
                     show_round_sprite = True
                     round_sprite_timer = current_time
+                     # Limpa e recria os inimigos ao mudar de round
+                    enemies.clear()
+                    for _ in range(100):
+                        enemies.append(spawn_inimigo_aleatorio())
                 # Durante a fúria, não spawna inimigos
                 if furia_displayed:
                     continue
@@ -209,6 +216,10 @@ def gameloop_game(game_mode):
                     round_start_time = current_time
                     show_round_sprite = True
                     round_sprite_timer = current_time
+                    # Limpa e recria os inimigos ao mudar de round
+                    enemies.clear()
+                    for _ in range(100):
+                        enemies.append(spawn_inimigo_aleatorio())
                 # Durante a fúria, spawna inimigos mais rápidos e em maior quantidade
                 spawn_interval = 0.1
                 enemy_speed_multiplier = 2.0
@@ -234,6 +245,10 @@ def gameloop_game(game_mode):
                 tipo = "explotion_monster" if random.random() < 0.5 else "normal"
                 enemies.append(spawn_inimigo_aleatorio(tipo=tipo, speed_multiplier=enemy_speed_multiplier))
                 spawn_timer = current_time
+
+
+
+
 
         # Controle de vida/invencibilidade
         if vida_perdida and not invencivel and vidas > 0:
