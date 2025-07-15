@@ -21,8 +21,11 @@ def Sprites_game():
     game_over = Sprite('Sprites/Game/HUD/game_over.png')
     yes_button = Sprite('Sprites/Game/HUD/yes_button.png')
     no_button = Sprite('Sprites/Game/HUD/no_button.png')
+    furia = Sprite('Sprites/Game/HUD/FURIA.png')
+    round_2 = Sprite('Sprites/Game/HUD/round_2.png')
+    round_3 = Sprite('Sprites/Game/HUD/round_3.png')
 
-    return full_heart, heartless, mapa, game_over, yes_button, no_button
+    return full_heart, heartless, mapa, game_over, yes_button, no_button, furia, round_2, round_3
 
 def Sprites_jogador():
     player = Sprite('Sprites/Game/player.png')
@@ -32,5 +35,7 @@ def Sprites_jogador():
 
 def Sprites_enemy():
     enemy = Sprite('Sprites/Game/inimigos/inimigo_default.png')
+    explotion_monster = Sprite('Sprites/Game/inimigos/explosive_monster.png')
+    explotion = Sprite('Sprites/Game/inimigos/explosion.png')
 
-    return enemy
+    return enemy, explotion_monster, explotion

@@ -1,5 +1,7 @@
 from config import window, mouse, keyboard, click
 from Sprites import Sprites_Menu, Sprite_Score
+import json
+import pygame
 
 #define as posições dos Sprite na janela de menu
 def posições_Sprites_menu():
@@ -14,11 +16,22 @@ def posições_Sprites_menu():
 def gameloop_score(game_mode):
     score_background = Sprite_Score()
     score_background.set_position((window.width - score_background.width)/2, (window.height - score_background.height)/2)
+    font = pygame.font.SysFont("arial", 28)
+    try:
+        with open("Score.json", "r", encoding="utf-8") as f:
+            scores = json.load(f)
+    except:
+        scores = []
     while game_mode == 2:
         if keyboard.key_pressed("ESC"):
             return 0
 
         score_background.draw()
+        # Mostra os 5 melhores
+        for i, partida in enumerate(scores[:5]):
+            texto = f"{i+1}. {partida['data_hora']} | Tempo: {partida['tempo_str']} | Kills: {partida['kills']}"
+            img = font.render(texto, True, (255,255,255))
+            window.screen.blit(img, (100, 150 + i*40))
         window.update()
         
 

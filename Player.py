@@ -90,7 +90,6 @@ def shooting_funcionality(disparos, last_shot_time, current_time, player_world_x
 
     return last_shot_time
 
-# Player.py
 player_world_x = 1000  # posição inicial no mapa
 player_world_y = 1000
 
