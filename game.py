@@ -249,8 +249,8 @@ def gameloop_game(game_mode):
 
         # ROUND 3: apenas inimigos normais e explosivos, sem fúria
         elif rounds == 3:
-            spawn_interval = 0.2
-            enemy_speed_multiplier = 1.0
+            spawn_interval = 0.1
+            enemy_speed_multiplier = 2.0
             if current_time - spawn_timer > spawn_interval:
                 tipo = "explotion_monster" if random.random() < 0.5 else "normal"
                 enemies.append(spawn_inimigo_aleatorio(tipo=tipo, speed_multiplier=enemy_speed_multiplier))
@@ -268,7 +268,7 @@ def gameloop_game(game_mode):
             piscando = True
         # Invencibilidade por 2 segundos
         if invencivel:
-            if current_time - invencivel_timer >= 2:
+            if current_time - invencivel_timer >= 3:
                 invencivel = False
                 piscando = False
 
