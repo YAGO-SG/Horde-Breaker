@@ -65,7 +65,7 @@ def gameloop_game(game_mode):
     round_sprite_timer = 0
 
     kills = 0
-    vidas = 35555555
+    vidas = 3
     invencivel = False
     invencivel_timer = 0
     piscando = False
@@ -157,6 +157,8 @@ def gameloop_game(game_mode):
             else:
                 continue
 
+        # ...existing code...
+
         # ROUND 1: Fúria após 40s
         if rounds == 1:
             if round_state == "normal" and elapsed_round_sec >= 40:
@@ -180,19 +182,24 @@ def gameloop_game(game_mode):
                     round_start_time = current_time
                     show_round_sprite = True
                     round_sprite_timer = current_time
-                     # Limpa e recria os inimigos ao mudar de round
+                    # Limpa e recria os inimigos ao mudar de round
                     enemies.clear()
                     for _ in range(100):
-                        enemies.append(spawn_inimigo_aleatorio())
+                        enemies.append(spawn_inimigo_aleatorio(tipo="normal"))
+                spawn_interval = 0.1
+                enemy_speed_multiplier = 2.0
+                if current_time - spawn_timer > spawn_interval:
+                    tipo = "normar" if random.random() < 0.5 else "normal"
+                    enemies.append(spawn_inimigo_aleatorio(tipo=tipo, speed_multiplier=enemy_speed_multiplier))
+                    spawn_timer = current_time
                 # Durante a fúria, não spawna inimigos
                 if furia_displayed:
                     continue
-            # Spawna inimigos normais
-            spawn_interval = 0.2
+            # Spawna apenas inimigos normais no round 1
+            spawn_interval = 0.1
             enemy_speed_multiplier = 1.0
             if current_time - spawn_timer > spawn_interval:
-                tipo = "explotion_monster" if elapsed_round_sec > 30 else "normal"
-                enemies.append(spawn_inimigo_aleatorio(tipo=tipo, speed_multiplier=enemy_speed_multiplier))
+                enemies.append(spawn_inimigo_aleatorio(tipo="normal", speed_multiplier=enemy_speed_multiplier))
                 spawn_timer = current_time
 
         # ROUND 2: Fúria após 40s
@@ -219,7 +226,8 @@ def gameloop_game(game_mode):
                     # Limpa e recria os inimigos ao mudar de round
                     enemies.clear()
                     for _ in range(100):
-                        enemies.append(spawn_inimigo_aleatorio())
+                        tipo = "explotion_monster" if random.random() < 0.5 else "normal"
+                        enemies.append(spawn_inimigo_aleatorio(tipo=tipo))
                 # Durante a fúria, spawna inimigos mais rápidos e em maior quantidade
                 spawn_interval = 0.1
                 enemy_speed_multiplier = 2.0
@@ -237,6 +245,8 @@ def gameloop_game(game_mode):
                 enemies.append(spawn_inimigo_aleatorio(tipo=tipo, speed_multiplier=enemy_speed_multiplier))
                 spawn_timer = current_time
 
+        # ...existing code...
+
         # ROUND 3: apenas inimigos normais e explosivos, sem fúria
         elif rounds == 3:
             spawn_interval = 0.2
@@ -248,22 +258,14 @@ def gameloop_game(game_mode):
 
 
 
-
-
         # Controle de vida/invencibilidade
-        if vida_perdida and not invencivel and vidas > 0:
-            vidas -= 1
-            invencivel = True
-            invencivel_timer = current_time
-
-        if player_hit and not invencivel and vidas > 0:
+        if (player_hit or vida_perdida) and not invencivel and vidas > 0:
             vidas -= 1
             if full_heart:
                 full_heart.pop()
             invencivel = True
             invencivel_timer = current_time
             piscando = True
-
         # Invencibilidade por 2 segundos
         if invencivel:
             if current_time - invencivel_timer >= 2:
